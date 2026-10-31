@@ -22,8 +22,8 @@ class SearchParams:
     price_to: Optional[int] = None
     my_location: str = ""
     max_distance_km: Optional[int] = None
-    description_keywords: str = ""   # słowa, z których min. jedno musi wystąpić
-    excluded_phrases: str = DEFAULT_EXCLUDED
+    description_keywords: str = ""   # opcjonalne: min. jedno słowo musi wystąpić
+    excluded_phrases: str = ""   # opcjonalne
     use_otomoto: bool = True
     use_olx: bool = True
 

@@ -24,8 +24,9 @@ def format_message(params: SearchParams, listing: Optional[Listing]) -> str:
         f"**Rok:** {_range(params.year_from, params.year_to)}",
         f"**Cena:** {_range(params.price_from, params.price_to, ' zł')}",
         f"**Lokalizacja:** {params.my_location or 'nie ustawiono'}",
-        f"**Opis ogłoszenia:** {params.description_keywords or '—'}",
     ]
+    if params.description_keywords.strip():
+        lines.append(f"**Opis ogłoszenia:** {params.description_keywords}")
     if listing:
         dist = (f" (~{listing.distance_km:.0f} km od Ciebie)"
                 if listing.distance_km is not None else "")

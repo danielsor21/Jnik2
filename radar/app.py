@@ -64,11 +64,14 @@ class App(tk.Tk):
         field(3, 2, "Cena do (zł):", "price_to", 10)
         field(4, 0, "Moja lokalizacja:", "my_location")
         field(4, 2, "Maks. odległość (km):", "max_distance", 8)
-        field(5, 0, "Opis zawiera (min. 1):", "keywords", 30)
-        field(5, 2, "Odrzuć, jeśli opis zawiera:", "excluded", 30)
+        field(5, 0, "Opis zawiera (opcjonalnie):", "keywords", 30)
+        field(5, 2, "Odrzuć, jeśli opis zawiera (opcjonalnie):", "excluded", 30)
+        ttk.Button(form, text="Wstaw przykładowe frazy do odrzucania",
+                   command=lambda: self.vars["excluded"].set(DEFAULT_EXCLUDED)
+                   ).grid(row=6, column=2, columnspan=2, sticky="e")
         ttk.Label(form, text="(lokalizacja: wpisz miasto – program policzy "
                   "odległość do każdej oferty)", foreground="#666").grid(
-            row=6, column=0, columnspan=4, sticky="w")
+            row=6, column=0, columnspan=2, sticky="w")
         src = ttk.Frame(form)
         src.grid(row=0, column=2, columnspan=2, sticky="e")
         ttk.Checkbutton(src, text="Otomoto", variable=self.use_otomoto).pack(
@@ -120,7 +123,7 @@ class App(tk.Tk):
     # ------------------------------------------------------ ustawienia
     def _load(self) -> None:
         s = storage.load_settings()
-        defaults = {"excluded": DEFAULT_EXCLUDED, "interval": "15"}
+        defaults = {"interval": "15"}
         for k, var in self.vars.items():
             var.set(str(s.get(k, defaults.get(k, "")) or ""))
         self.use_otomoto.set(s.get("use_otomoto", True))

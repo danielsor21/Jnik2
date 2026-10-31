@@ -2,7 +2,7 @@ import json
 import filters
 import notifier
 import scraper
-from models import Listing, SearchParams
+from models import DEFAULT_EXCLUDED, Listing, SearchParams
 
 
 def test_otomoto_json():
@@ -30,7 +30,7 @@ def test_olx_cards():
 
 def test_filters_and_message():
     p = SearchParams(brand="Mercedes", model="CLA", year_from=2014,
-                     price_to=30000)
+                     price_to=30000, excluded_phrases=DEFAULT_EXCLUDED)
     ok = Listing("OLX", "Mercedes CLA 250", "u", 25000, 2015)
     bad = Listing("OLX", "Mercedes CLA po powodzi", "u2", 25000, 2015)
     assert filters.matches(ok, p) and not filters.matches(bad, p)
