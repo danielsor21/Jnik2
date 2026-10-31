@@ -1,0 +1,13 @@
+name: Build EXE
+on: [workflow_dispatch, push]
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults: {run: {working-directory: radar}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python build_exe.py
+      - uses: actions/upload-artifact@v4
+        with: {name: RadarOkazji, path: radar/dist/RadarOkazji.exe}
